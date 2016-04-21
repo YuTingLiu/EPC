@@ -116,15 +116,7 @@ def getTable2002(opener,week):
             #print(option['type'])
             print("week:" + s + fday.text + ftime.text + fteacher.text)
             if(int(s) == week) or (int(s) == week+1):
-                postToSAE(opener,int(s),fday.text,ftime.text)
-                # if(option['type'] == 'submit'):
-                    # continue
-            # if(int(s) == week):
-                # if(checkIfForbid(fday.text,ftime.text)==1):  
-                    # if(fteacher.text == 'Hanna'):
                 action = re.sub(r'page=\d+','page=1',list['action'])
-                #postTable(opener,week,2002,action)
-            #postToSAE(opener,week,fday,ftime)
     except urllib.error.URLError as e:
         print(e.reason)
     except urllib.error.HTTPError as e:
@@ -162,15 +154,7 @@ def getTable2003(opener,week):
             #print(option['type'])
             print("week:" + s + fday.text + ftime.text + fteacher.text)
             if(int(s) == week) or (int(s) == week+1):
-                postToSAE(opener,int(s),fday.text,ftime.text)
-                # if(option['type'] == 'submit'):
-                    # continue
-            # if(int(s) == week):
-                # if(checkIfForbid(fday.text,ftime.text)==1):  
-                    # if(fteacher.text == 'Hanna'):
                 action = re.sub(r'page=\d+','page=1',list['action'])
-                #postTable(opener,week,2003,action)
-            #postToSAE(opener,week,fday,ftime)
     except urllib.error.URLError as e:
         print(e.reason)
     except urllib.error.HTTPError as e:
@@ -208,15 +192,12 @@ def getTable2004(opener,week):
             #print(option['type'])
             print("week:" + s + fday.text + ftime.text + fteacher.text)
             if(int(s) == week) or (int(s) == week+1):
-                postToSAE(opener,int(s),fday.text,ftime.text)
                 # if(option['type'] == 'submit'):
                     # continue
             # if(int(s) == week):
                 # if(checkIfForbid(fday.text,ftime.text)==1):  
                     # if(fteacher.text == 'Hanna'):
                 action = re.sub(r'page=\d+','page=1',list['action'])
-                #postTable(opener,week,2004,action)
-            #postToSAE(opener,week,fday,ftime)
     except urllib.error.URLError as e:
         print(e.reason)
     except urllib.error.HTTPError as e:
@@ -261,38 +242,7 @@ def postTable(opener,week,second_id,action):
     postToSAE(opener,'1','0',action)
     #print(soup.prettify())
     #print(text)
-    
-def postToSAE(opener,week,weekday,timec):
-    headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36',
-                'Referer' : 'http://wechatustcepc.applinzi.com'} 
-    postUrl = "http://wechatustcepc.applinzi.com/getFromEpc"
-    
-    print(compose_debug_url(postUrl))
-    postData = {
-                'Week': week,
-                'WeekDay':weekday,
-                'Time':timec
-                } 
-    print(postData)
-    #需要给Post数据编码 
-    postData = urllib.parse.urlencode(postData) 
-    #通过urllib2提供的request方法来向指定Url发送我们构造的数据，并完成登录过程 
-    request = urllib.request.Request(postUrl, postData.encode(encoding="utf-8",errors="ignore"),headers) 
-    #print(request)
-    try:
-        response = urllib.request.urlopen(request)
-        text = response.read() 
-        response.close()
-        outfile=open('e:/saePostTest.txt', 'wb')
-        outfile.write(text)
-        outfile.close()
-        soup = BeautifulSoup(text)
-    except urllib.error.URLError as e:
-        print(e.reason)
-    except urllib.error.HTTPError as e:
-        print(e.reason)
-    #print(soup.prettify())
-    #print(text)
+
 def compose_debug_url(input_url):
     input_url_parts = urllib.parse.urlsplit(input_url)
     input_query = input_url_parts.query
@@ -339,9 +289,6 @@ opener = urllib.request.build_opener(cookie_support)
 urllib.request.install_opener(opener) 
 epcPlay(opener,headers)
 gl.week = getWeek(opener)
-print("week is :  %d" %(gl.week))
-print("week day is :  %d" %(gl.week_day))
-postToSAE(opener,'0','0','0')
 while(flag != 2):
     #time.sleep(10)
     flag = getTable2002(opener,gl.week)
