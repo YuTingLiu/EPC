@@ -24,8 +24,8 @@ def epcPlay(opener,headers):
     #构造Post数据，他也是从抓大的包里分析得出的。 
     postData = {
                 'submit_type' : 'user_login',
-                'name' : 'SC15011028',
-                'pass' : 'AUEKZK',
+                'name' : '学号',
+                'pass' : '你的密码',
                 'txt_check' : check,
                 'user_type':'2',
                 'Submit': 'LOG IN'
